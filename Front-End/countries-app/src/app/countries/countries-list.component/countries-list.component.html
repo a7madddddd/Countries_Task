@@ -1,0 +1,73 @@
+<div class="countries-container">
+  <h2>Countries List</h2>
+
+
+  <div class="actions">
+    <button (click)="goToAddCountry()" class="btn-add">Add New Country</button>
+  </div>
+
+
+  <div class="search-box">
+    <input type="text" placeholder="Search..." (input)="onSearchChange($event.target.value)" />
+  </div>
+
+
+  <div class="table-wrapper">
+    <table class="countries-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th (click)="sortCountries('name')">Name
+            <span *ngIf="sortColumn === 'name'">{{ sortAscending ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sortCountries('code')">Code
+            <span *ngIf="sortColumn === 'code'">{{ sortAscending ? '▲' : '▼' }}</span>
+          </th>
+          <th (click)="sortCountries('createdDate')">Created Date
+            <span *ngIf="sortColumn === 'createdDate'">{{ sortAscending ? '▲' : '▼' }}</span>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let country of countries; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ country.name }}</td>
+          <td>{{ country.code }}</td>
+          <td>{{ country.createdDate | date:'mediumDate' }}</td>
+          <td>
+            <button (click)="goToEditCountry(country.id)" class="btn-edit">Edit</button>
+            <button (click)="promptDeleteCountry(country.id)" class="btn-delete">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="countries.length === 0">
+          <td colspan="5" class="no-data">No data available to display</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="onPageChange(pageNumber - 1)" [disabled]="pageNumber === 1">Previous</button>
+    <span>Page {{pageNumber}} of {{ Math.ceil(totalRecords / pageSize) }}</span>
+    <button (click)="onPageChange(pageNumber + 1)" [disabled]="pageNumber * pageSize >= totalRecords">Next</button>
+  </div>
+
+  <!-- Success / Error Toasts -->
+  <div class="toast" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <!-- Delete Confirmation Toast -->
+  <div class="toast confirm-toast" *ngIf="showDeleteConfirm">
+    Are you sure you want to delete this country?
+    <div class="toast-buttons">
+      <button class="btn btn-danger" (click)="confirmDelete(true)">Yes</button>
+      <button class="btn btn-secondary" (click)="confirmDelete(false)">No</button>
+    </div>
+  </div>
+
+  <!-- داخل الجدول -->
+
+
+</div>

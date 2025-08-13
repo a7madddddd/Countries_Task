@@ -1,0 +1,37 @@
+<div class="form-container">
+  <h2>Edit Country</h2>
+
+  <form [formGroup]="countryForm" (ngSubmit)="saveCountry()" class="country-form">
+    <!-- Country Name -->
+    <div class="form-group">
+      <label for="name">Country Name</label>
+      <input type="text" id="name" placeholder="Enter country name" formControlName="name" maxlength="100" />
+      <div class="error" *ngIf="countryForm.get('name')?.touched && countryForm.get('name')?.invalid">
+        <span *ngIf="countryForm.get('name')?.errors?.['required']">Country name is required.</span>
+      </div>
+    </div>
+
+    <!-- Country Code -->
+    <div class="form-group">
+      <label for="code">Country Code</label>
+      <input type="text" id="code" placeholder="Enter country code" formControlName="code" maxlength="5" />
+      <div class="error" *ngIf="countryForm.get('code')?.touched && countryForm.get('code')?.invalid">
+        <span *ngIf="countryForm.get('code')?.errors?.['required']">Country code is required.</span>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-buttons">
+      <button type="button" class="btn btn-secondary" (click)="goHome()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="countryForm.invalid">Save</button>
+    </div>
+
+    <div class="toast" *ngIf="successMessage">{{ successMessage }}</div>
+    
+
+    <!-- Backend error message -->
+    <div *ngIf="backendError" class="backend-error">
+      {{ backendError }}
+    </div>
+  </form>
+</div>

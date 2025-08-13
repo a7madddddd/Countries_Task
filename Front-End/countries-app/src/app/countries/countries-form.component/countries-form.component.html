@@ -1,0 +1,36 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Country' : 'Add New Country' }}</h2>
+
+  <form [formGroup]="countryForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="name">Country Name</label>
+      <input id="name" type="text" formControlName="name" placeholder="Enter country name" maxlength="100" />
+      <div class="error" *ngIf="countryForm.get('name')?.invalid && countryForm.get('name')?.touched">
+        Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="code">Country Code</label>
+      <input id="code" type="text" formControlName="code" placeholder="Enter country code" maxlength="5" />
+      <div class="error" *ngIf="countryForm.get('code')?.invalid && countryForm.get('code')?.touched">
+        Code is required.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="countryForm.invalid">
+        {{ isEditMode ? 'Update' : 'Add' }}
+      </button>
+      <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+    </div>
+
+    <div class="toast" *ngIf="successMessage">{{ successMessage }}</div>
+
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
