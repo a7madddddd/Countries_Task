@@ -17,17 +17,31 @@
       <thead>
         <tr>
           <th>#</th>
-          <th (click)="sortCountries('name')">Name
-            <span *ngIf="sortColumn === 'name'">{{ sortAscending ? '▲' : '▼' }}</span>
+
+          <th (click)="sortCountries('name')">
+            Name
+            <span>
+              {{ sortColumn === 'name' ? (sortAscending ? '▲' : '▼') : '⇅' }}
+            </span>
           </th>
-          <th (click)="sortCountries('code')">Code
-            <span *ngIf="sortColumn === 'code'">{{ sortAscending ? '▲' : '▼' }}</span>
+
+          <th (click)="sortCountries('code')">
+            Code
+            <span>
+              {{ sortColumn === 'code' ? (sortAscending ? '▲' : '▼') : '⇅' }}
+            </span>
           </th>
-          <th (click)="sortCountries('createdDate')">Created Date
-            <span *ngIf="sortColumn === 'createdDate'">{{ sortAscending ? '▲' : '▼' }}</span>
+
+          <th (click)="sortCountries('createdDate')">
+            Created Date
+            <span>
+              {{ sortColumn === 'createdDate' ? (sortAscending ? '▲' : '▼') : '⇅' }}
+            </span>
           </th>
+
           <th>Actions</th>
         </tr>
+
       </thead>
       <tbody>
         <tr *ngFor="let country of countries; let i = index">
