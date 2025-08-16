@@ -6,6 +6,22 @@ It allows users to **add, edit, delete, search, filter, and sort countries** wit
 
 ---
 
+## Database
+### Table: `Countries`
+| Column       | Type          | Constraints                     |
+| ------------ | ------------- | ------------------------------- |
+| Id           | int           | Primary Key, Identity           |
+| Name         | nvarchar(100) | Required, Unique                |
+| Code         | nvarchar(5)   | Required, Unique                |
+| CreatedDate  | datetime      | Default = current date          |
+| IsDeleted    | bit           | Default = 0 (for soft delete)  |
+
+**Indexes:**
+- Unique index on `Name`  
+- Unique index on `Code`  
+
+---
+
 ## 🏗️ Architecture Overview
 The solution follows **Clean Architecture** principles and consists of **4 layers**:
 
@@ -73,6 +89,19 @@ The solution follows **Clean Architecture** principles and consists of **4 layer
 | **Error Handling**       | Centralized API error responses. |
 | **Responsive UI**        | Works across desktop and mobile devices. |
 
+---
+- **Validation:**  
+  - `Name` and `Code` are required  
+  - `Code` length ≤ 5 characters  
+  - Duplicate `Name` or `Code` are not allowed  
+- **Soft Delete:** Deleted countries are not physically removed  
+- **Pagination:** Backend supports `pageNumber` and `pageSize`  
+- **Search & Filtering:** Filter by `Name` or `Code`  
+- **Sorting:** Sort by `Name`, `Code`, or `CreatedDate`  
+
+### Error Handling
+- Returns proper **HTTP status codes** (`400`, `404`, `500`)  
+- Returns detailed error messages for frontend consumption  
 ---
 
 ## 🛠️ Technologies Used
