@@ -122,6 +122,4 @@ The solution follows **Clean Architecture** principles and consists of **4 layer
 ### Backend:
 1. Clone the repository.
 2. Configure **appsettings.json** with your database connection string.
-3. Run EF Core migrations:
-   ```bash
-   dotnet ef database update
+
